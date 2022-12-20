@@ -1,10 +1,12 @@
-import React, {useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import {useOrientation} from '../../hooks/useOrientation';
-import {ColorJumpers} from "../../components/ColorJumpers";
+import {ColorJumpers} from '../../components/ColorJumpers';
+import {ScreenControls} from '../../components/ScreenControls';
 
 export const GameHome = props => {
   const {orientation} = useOrientation();
+  const [directionRotate, setDirectionRotate] = useState(['0deg', '360deg']);
 
   return (
     <View
@@ -13,17 +15,15 @@ export const GameHome = props => {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#1A202C',
-      }}
-    >
-      <Text
-        style={{
-          color: 'white',
-        }}
-      >
-        <ColorJumpers>
-          <Text>HI</Text>
-        </ColorJumpers>
-      </Text>
+      }}>
+      <ColorJumpers directionRotate={directionRotate}>
+        <Text
+          style={{
+            color: 'white',
+          }}>
+          HI
+        </Text>
+      </ColorJumpers>
     </View>
   );
 };
