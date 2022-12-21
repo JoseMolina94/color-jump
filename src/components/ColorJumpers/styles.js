@@ -9,5 +9,4 @@ export const jumpersStyle = {
   borderRadius: 125,
   alignItems: 'center',
   justifyContent: 'center',
-  flex: 1,
 }
