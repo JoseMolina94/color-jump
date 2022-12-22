@@ -6,10 +6,11 @@ import {ScreenControls} from '../../components/ScreenControls';
 
 export const GameHome = props => {
   const {orientation} = useOrientation();
-  const [directionRotate, setDirectionRotate] = useState(['0deg', '360deg']);
+  const [directionRotate, setDirectionRotate] = useState('right');
 
   const validationControl = (valueControl) => {
-    return valueControl[0] !== directionRotate[0] && valueControl[1] !== directionRotate[1]
+    //return valueControl[0] !== directionRotate[0] && valueControl[1] !== directionRotate[1]
+    return valueControl !== directionRotate;
   }
   
   return (
@@ -23,8 +24,8 @@ export const GameHome = props => {
       }}>
       <ScreenControls
         setState={setDirectionRotate}
-        valueRight={['0deg', '360deg']}
-        valueLeft={['360deg', '0deg']}
+        // valueRight={['0deg', '360deg']}
+        // valueLeft={['360deg', '0deg']}
         validation={validationControl}
       />
       <ColorJumpers directionRotate={directionRotate}>
