@@ -1,9 +1,14 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef, useContext } from "react";
 import {View} from 'react-native';
 import {jumpersStyle} from './styles';
+import { GameContext } from "../../contexts/GameContext";
 
 export const ColorJumpers = props => {
   const {children, directionRotate = 'right', velocity = 1} = props;
+  const {
+    JUMPERS_SIZES,
+    COLORS
+  } = useContext(GameContext);
   const [rotation, setRotation] = useState(0);
   const [iteration, setIteration] = useState(0);
   const reference = useRef(null);
@@ -38,7 +43,10 @@ export const ColorJumpers = props => {
     <View
       ref={reference}
       style={{
-        ...jumpersStyle,
+        ...jumpersStyle({
+          sizes: JUMPERS_SIZES,
+          colors: COLORS
+        }),
         transform: [{rotate: rotation + 'deg'}],
       }}>
       {children}
