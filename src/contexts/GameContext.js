@@ -18,7 +18,7 @@ const GameContextProvider = ({children}) => {
   const [iteration, setIteration] = useState(0);
   const [jumperColorsRotation, setJumperColorsRotation] = useState(0);
   const [directionRotate, setDirectionRotate] = useState('right');
-  const [velocity, setVelocity] = useState(2);
+  const [velocity, setVelocity] = useState(3);
   const [animation, setAnimation] = useState(null);
   const PLAYER_SIZES = {
     height: 40,
@@ -44,6 +44,24 @@ const GameContextProvider = ({children}) => {
         setJumperColorsRotation(value => value - velocity);
       }
     }
+
+    if (!isJumping) {
+      setJumperPos(value => value + 3);
+    } else {
+      setJumperPos(value => value - 3);
+    }
+
+    if (
+      jumperPos + PLAYER_SIZES.height >=
+      jumperColorsPos + JUMPERS_SIZES.height
+    ) {
+      setIsJumping(() => true);
+    }
+    if (jumperPos <= maxJumpingPos) {
+      setIsJumping(() => false);
+      setColorTurn(() => setColorRandom());
+    }
+
     setIteration(value => value + 1);
   };
 
@@ -54,18 +72,19 @@ const GameContextProvider = ({children}) => {
     );
 
     setJumperPos(initJumperPos);
-    setMaxJumpingPos(initJumperPos);
+    setMaxJumpingPos(initJumperPos - 50);
     setJumperColorsPos(initJumperColorPos);
     setLoadingGame(false);
   };
 
   const setColorRandom = () => {
     const color = Math.floor(Math.random() * COLORS.length);
-    setColorTurn(COLORS[color]);
+    return COLORS[color];
   };
 
   useEffect(() => {
-    setColorRandom();
+    const color = setColorRandom();
+    setColorTurn(color);
   }, []);
 
   useEffect(() => {
@@ -91,17 +110,6 @@ const GameContextProvider = ({children}) => {
   useEffect(() => {
     resizePos();
   }, [orientation]);
-
-  useEffect(() => {
-    window.fnInterval = setTimeout(function () {
-      game();
-      clearTimeout(window.fnInterval);
-    }, 0);
-
-    return () => {
-      clearInterval(window.fnInterval);
-    };
-  }, [directionRotate, iteration]);
 
   return (
     <GameContext.Provider
@@ -131,6 +139,8 @@ const GameContextProvider = ({children}) => {
         velocity,
         setVelocity,
         animation,
+        game,
+        iteration
       }}>
       {children}
     </GameContext.Provider>
