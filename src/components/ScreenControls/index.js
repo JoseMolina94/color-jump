@@ -32,8 +32,8 @@ export const ScreenControls = props => {
       }}>
       <TouchableOpacity
         style={{
-          borderWidth: 1,
-          borderColor: 'red',
+          //borderWidth: 1,
+          //borderColor: 'red',
           height: size.height,
           width: size.width,
         }}
@@ -45,8 +45,8 @@ export const ScreenControls = props => {
       />
       <TouchableOpacity
         style={{
-          borderWidth: 1,
-          borderColor: 'blue',
+          //borderWidth: 1,
+          //borderColor: 'blue',
           height: size.height,
           width: size.width,
         }}

@@ -10,6 +10,7 @@ const GameContextProvider = ({children}) => {
   const COLORS = ['red', 'blue', 'yellow', 'green'];
   const [colorTurn, setColorTurn] = useState('');
   const [gameOver, setGameOver] = useState(false);
+  const [gameStart, setGameStart] = useState(false);
   const {orientation} = useOrientation();
   const [jumperPos, setJumperPos] = useState(0);
   const [maxJumpingPos, setMaxJumpingPos] = useState(0);
@@ -20,6 +21,7 @@ const GameContextProvider = ({children}) => {
   const [directionRotate, setDirectionRotate] = useState('right');
   const [velocity, setVelocity] = useState(4);
   const [animation, setAnimation] = useState(null);
+  const [score, setScore] = useState(0);
   const PLAYER_SIZES = {
     height: 40,
     width: 40,
@@ -78,7 +80,7 @@ const GameContextProvider = ({children}) => {
       }
     }
 
-    if (!gameOver) {
+    if (!gameOver && gameStart) {
       if (!isJumping) {
         setJumperPos(value => value + (velocity / 2));
       } else {
@@ -91,6 +93,7 @@ const GameContextProvider = ({children}) => {
       ) {
         if (canJumpAgain()) {
           setIsJumping(() => true);
+          setScore(value => value + 5);
         } else {
           setGameOver(true);
         }
@@ -122,6 +125,8 @@ const GameContextProvider = ({children}) => {
   };
 
   useEffect(() => {
+    setGameStart(false);
+    setScore(0);
     const color = setColorRandom(['red', 'green', 'blue']);
     setColorTurn(color);
   }, []);
@@ -180,6 +185,9 @@ const GameContextProvider = ({children}) => {
         animation,
         game,
         iteration,
+        gameStart,
+        setGameStart,
+        score,
       }}>
       {children}
     </GameContext.Provider>
