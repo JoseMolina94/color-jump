@@ -82,9 +82,9 @@ const GameContextProvider = ({children}) => {
 
     if (!gameOver && gameStart) {
       if (!isJumping) {
-        setJumperPos(value => value + (velocity / 2));
+        setJumperPos(value => value + velocity / 2);
       } else {
-        setJumperPos(value => value - (velocity / 2));
+        setJumperPos(value => value - velocity / 2);
       }
 
       if (
@@ -123,24 +123,8 @@ const GameContextProvider = ({children}) => {
     const color = Math.floor(Math.random() * colorArray.length);
     return colorArray[color];
   };
-  
-  const restartGame = () => {
-    const color = setColorRandom();
-    setColorTurn(color);
-    setJumperPos(maxJumpingPos);
-    setScore(0);
-    setGameStart(true);
-    setGameOver(false);
-  }
 
-  useEffect(() => {
-    setGameStart(false);
-    setScore(0);
-    const color = setColorRandom(['red', 'green', 'blue']);
-    setColorTurn(color);
-  }, []);
-
-  useEffect(() => {
+  const initAnimation = () => {
     let animationValue = new Animated.Value(0);
 
     Animated.loop(
@@ -158,6 +142,24 @@ const GameContextProvider = ({children}) => {
     });
 
     setAnimation(_animation);
+  };
+
+  const restartGame = () => {
+    const color = setColorRandom();
+    setColorTurn(color);
+    initAnimation();
+    setGameStart(true);
+    setGameOver(false);
+    setJumperPos(maxJumpingPos);
+    setScore(0);
+  };
+
+  useEffect(() => {
+    setGameStart(false);
+    setScore(0);
+    initAnimation();
+    const color = setColorRandom(['red', 'green', 'blue']);
+    setColorTurn(color);
   }, []);
 
   useEffect(() => {

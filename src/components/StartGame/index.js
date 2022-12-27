@@ -24,7 +24,7 @@ export const StartGame = () => {
     });
 
     setAnimation(_animation);
-  }, []);
+  }, [gameStart]);
 
   return (
     !gameStart && (

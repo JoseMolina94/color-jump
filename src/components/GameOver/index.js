@@ -24,7 +24,7 @@ export const GameOver = () => {
     });
 
     setAnimation(_animation);
-  }, []);
+  }, [gameOver]);
 
   return (
     gameOver && (
