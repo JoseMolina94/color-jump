@@ -19,7 +19,7 @@ const GameContextProvider = ({children}) => {
   const [iteration, setIteration] = useState(0);
   const [jumperColorsRotation, setJumperColorsRotation] = useState(0);
   const [directionRotate, setDirectionRotate] = useState('right');
-  const [velocity, setVelocity] = useState(4);
+  const [velocity, setVelocity] = useState(2);
   const [animation, setAnimation] = useState(null);
   const [score, setScore] = useState(0);
   const PLAYER_SIZES = {
@@ -104,7 +104,7 @@ const GameContextProvider = ({children}) => {
       }
     }
 
-    setIteration(value => value + 1);
+    // setIteration(value => value + 1);
   };
 
   const resizePos = () => {
@@ -148,7 +148,7 @@ const GameContextProvider = ({children}) => {
     const color = setColorRandom();
     setColorTurn(color);
     initAnimation();
-    setGameStart(true);
+    setGameStart(false);
     setGameOver(false);
     setJumperPos(maxJumpingPos);
     setScore(0);
@@ -165,6 +165,23 @@ const GameContextProvider = ({children}) => {
   useEffect(() => {
     resizePos();
   }, [orientation]);
+
+  useEffect(() => {
+    game();
+  }, [directionRotate, iteration]);
+
+  useEffect(() => {
+    clearTimeout(window.fnInterval);
+    window.fnInterval = setTimeout(function () {
+      setIteration(value => value + 1);
+      clearTimeout(window.fnInterval);
+      window.fnInterval = null;
+    }, 0);
+
+    return () => {
+      clearTimeout(window.fnInterval);
+    };
+  }, [directionRotate, iteration]);
 
   return (
     <GameContext.Provider

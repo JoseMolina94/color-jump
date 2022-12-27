@@ -13,8 +13,6 @@ export const GameHome = () => {
     loadingGame,
     directionRotate,
     setDirectionRotate,
-    game,
-    iteration,
     gameStart,
     gameOver,
   } = useContext(GameContext);
@@ -22,19 +20,6 @@ export const GameHome = () => {
   const validationControl = valueControl => {
     return valueControl !== directionRotate && gameStart && !gameOver;
   };
-
-  useEffect(() => {
-    clearTimeout(window.fnInterval);
-    window.fnInterval = setTimeout(function () {
-      game();
-      clearTimeout(window.fnInterval);
-      window.fnInterval = null;
-    }, 0);
-
-    return () => {
-      clearTimeout(window.fnInterval);
-    };
-  }, [directionRotate, iteration]);
 
   return (
     !loadingGame && (
