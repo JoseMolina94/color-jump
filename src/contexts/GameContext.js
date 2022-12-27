@@ -18,7 +18,7 @@ const GameContextProvider = ({children}) => {
   const [iteration, setIteration] = useState(0);
   const [jumperColorsRotation, setJumperColorsRotation] = useState(0);
   const [directionRotate, setDirectionRotate] = useState('right');
-  const [velocity, setVelocity] = useState(3);
+  const [velocity, setVelocity] = useState(4);
   const [animation, setAnimation] = useState(null);
   const PLAYER_SIZES = {
     height: 40,
@@ -27,6 +27,39 @@ const GameContextProvider = ({children}) => {
   const JUMPERS_SIZES = {
     height: 250,
     width: 250,
+  };
+
+  const canJumpAgain = () => {
+    if (
+      jumperColorsRotation >= 315 &&
+      jumperColorsRotation <= 45 &&
+      colorTurn === 'red'
+    ) {
+      return true;
+    }
+    if (
+      jumperColorsRotation >= 45 &&
+      jumperColorsRotation <= 135 &&
+      colorTurn === 'green'
+    ) {
+      return true;
+    }
+    if (
+      jumperColorsRotation >= 135 &&
+      jumperColorsRotation <= 225 &&
+      colorTurn === 'blue'
+    ) {
+      return true;
+    }
+    if (
+      jumperColorsRotation >= 225 &&
+      jumperColorsRotation <= 315 &&
+      colorTurn === 'yellow'
+    ) {
+      return true;
+    }
+
+    return false;
   };
 
   const game = () => {
@@ -45,21 +78,27 @@ const GameContextProvider = ({children}) => {
       }
     }
 
-    if (!isJumping) {
-      setJumperPos(value => value + 3);
-    } else {
-      setJumperPos(value => value - 3);
-    }
+    if (!gameOver) {
+      if (!isJumping) {
+        setJumperPos(value => value + (velocity / 2));
+      } else {
+        setJumperPos(value => value - (velocity / 2));
+      }
 
-    if (
-      jumperPos + PLAYER_SIZES.height >=
-      jumperColorsPos + JUMPERS_SIZES.height
-    ) {
-      setIsJumping(() => true);
-    }
-    if (jumperPos <= maxJumpingPos) {
-      setIsJumping(() => false);
-      setColorTurn(() => setColorRandom());
+      if (
+        jumperPos + PLAYER_SIZES.height >=
+        jumperColorsPos + JUMPERS_SIZES.height
+      ) {
+        if (canJumpAgain()) {
+          setIsJumping(() => true);
+        } else {
+          setGameOver(true);
+        }
+      }
+      if (jumperPos <= maxJumpingPos) {
+        setIsJumping(() => false);
+        setColorTurn(() => setColorRandom());
+      }
     }
 
     setIteration(value => value + 1);
@@ -77,13 +116,13 @@ const GameContextProvider = ({children}) => {
     setLoadingGame(false);
   };
 
-  const setColorRandom = () => {
-    const color = Math.floor(Math.random() * COLORS.length);
-    return COLORS[color];
+  const setColorRandom = (colorArray = COLORS) => {
+    const color = Math.floor(Math.random() * colorArray.length);
+    return colorArray[color];
   };
 
   useEffect(() => {
-    const color = setColorRandom();
+    const color = setColorRandom(['red', 'green', 'blue']);
     setColorTurn(color);
   }, []);
 
@@ -140,7 +179,7 @@ const GameContextProvider = ({children}) => {
         setVelocity,
         animation,
         game,
-        iteration
+        iteration,
       }}>
       {children}
     </GameContext.Provider>
