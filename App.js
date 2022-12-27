@@ -8,8 +8,8 @@ const Stack = createNativeStackNavigator();
 
 const App: () => Node = () => {
   return (
-    <GameContextProvider>
-      <NavigationContainer>
+    <NavigationContainer>
+      <GameContextProvider>
         <Stack.Navigator
           initialRouteName="Home"
           screenOptions={{headerShown: false}}>
@@ -22,8 +22,8 @@ const App: () => Node = () => {
             }}
           />
         </Stack.Navigator>
-      </NavigationContainer>
-    </GameContextProvider>
+      </GameContextProvider>
+    </NavigationContainer>
   );
 };
 export default App;

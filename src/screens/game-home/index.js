@@ -6,14 +6,21 @@ import {Jumper} from '../../components/Jumper';
 import {GameContext} from '../../contexts/GameContext';
 import {GameOver} from '../../components/GameOver';
 import {StartGame} from '../../components/StartGame';
-import { Score } from "../../components/Score";
+import {Score} from '../../components/Score';
 
 export const GameHome = () => {
-  const {loadingGame, directionRotate, setDirectionRotate, game, iteration} =
-    useContext(GameContext);
+  const {
+    loadingGame,
+    directionRotate,
+    setDirectionRotate,
+    game,
+    iteration,
+    gameStart,
+    gameOver,
+  } = useContext(GameContext);
 
   const validationControl = valueControl => {
-    return valueControl !== directionRotate;
+    return valueControl !== directionRotate && gameStart && !gameOver;
   };
 
   useEffect(() => {
