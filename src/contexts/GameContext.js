@@ -123,6 +123,15 @@ const GameContextProvider = ({children}) => {
     const color = Math.floor(Math.random() * colorArray.length);
     return colorArray[color];
   };
+  
+  const restartGame = () => {
+    const color = setColorRandom();
+    setColorTurn(color);
+    setJumperPos(maxJumpingPos);
+    setScore(0);
+    setGameStart(true);
+    setGameOver(false);
+  }
 
   useEffect(() => {
     setGameStart(false);
@@ -188,6 +197,7 @@ const GameContextProvider = ({children}) => {
         gameStart,
         setGameStart,
         score,
+        restartGame,
       }}>
       {children}
     </GameContext.Provider>
