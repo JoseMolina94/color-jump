@@ -19,7 +19,7 @@ const GameContextProvider = ({children}) => {
   const [iteration, setIteration] = useState(0);
   const [jumperColorsRotation, setJumperColorsRotation] = useState(0);
   const [directionRotate, setDirectionRotate] = useState('right');
-  const [velocity, setVelocity] = useState(2);
+  const [velocity, setVelocity] = useState(4);
   const [animation, setAnimation] = useState(null);
   const [score, setScore] = useState(0);
   const PLAYER_SIZES = {
@@ -33,27 +33,23 @@ const GameContextProvider = ({children}) => {
 
   const canJumpAgain = () => {
     if (
-      jumperColorsRotation >= 315 &&
-      jumperColorsRotation <= 45 &&
-      colorTurn === 'red'
+      jumperColorsRotation >= 315 ||
+      (jumperColorsRotation <= 45 && colorTurn === 'red')
     ) {
       return true;
-    }
-    if (
+    } else if (
       jumperColorsRotation >= 45 &&
       jumperColorsRotation <= 135 &&
       colorTurn === 'green'
     ) {
       return true;
-    }
-    if (
+    } else if (
       jumperColorsRotation >= 135 &&
       jumperColorsRotation <= 225 &&
       colorTurn === 'blue'
     ) {
       return true;
-    }
-    if (
+    } else if (
       jumperColorsRotation >= 225 &&
       jumperColorsRotation <= 315 &&
       colorTurn === 'yellow'

@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import {Dimensions} from 'react-native';
-import { GameContext } from "../../contexts/GameContext";
+import {GameContext} from '../../contexts/GameContext';
 
 export const ScreenControls = props => {
   const {
     setState = state => {},
     valueLeft = 'left',
     valueRight = 'right',
-    validation = (valueControl) => {},
+    validation = valueControl => {},
   } = props;
   const {orientation} = useContext(GameContext);
   const [size, setSize] = useState({});
