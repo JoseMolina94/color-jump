@@ -1,9 +1,7 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Animated, Easing, TouchableOpacity} from 'react-native';
-import {GameContext} from '../../contexts/GameContext';
 
-export const StartGame = () => {
-  const {gameStart, setGameStart} = useContext(GameContext);
+export const StartGame = ({gameStart, setGameStart}) => {
   const [animation, setAnimation] = useState(null);
 
   useEffect(() => {

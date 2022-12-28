@@ -1,12 +1,10 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {Image, Animated} from 'react-native';
 import * as JumperAsset from '../../assets/Smile.png';
 import * as JumperDead from '../../assets/dead.png';
-import {GameContext} from '../../contexts/GameContext';
 
 export const Jumper = props => {
-  const {colorTurn, PLAYER_SIZES, jumperPos, animation, gameOver} =
-    useContext(GameContext);
+  const {colorTurn, PLAYER_SIZES, jumperPos, animation, gameOver} = props;
 
   return (
     <Animated.View

@@ -1,7 +1,6 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import {Dimensions} from 'react-native';
-import {GameContext} from '../../contexts/GameContext';
 
 export const ScreenControls = props => {
   const {
@@ -9,8 +8,8 @@ export const ScreenControls = props => {
     valueLeft = 'left',
     valueRight = 'right',
     validation = valueControl => {},
+    orientation = '',
   } = props;
-  const {orientation} = useContext(GameContext);
   const [size, setSize] = useState({});
 
   useEffect(() => {
@@ -32,8 +31,6 @@ export const ScreenControls = props => {
       }}>
       <TouchableOpacity
         style={{
-          //borderWidth: 1,
-          //borderColor: 'red',
           height: size.height,
           width: size.width,
         }}
@@ -45,8 +42,6 @@ export const ScreenControls = props => {
       />
       <TouchableOpacity
         style={{
-          //borderWidth: 1,
-          //borderColor: 'blue',
           height: size.height,
           width: size.width,
         }}

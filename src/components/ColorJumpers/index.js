@@ -1,16 +1,9 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import {jumpersStyle} from './styles';
-import {GameContext} from '../../contexts/GameContext';
 
 export const ColorJumpers = props => {
-  const {children} = props;
-  const {
-    JUMPERS_SIZES,
-    COLORS,
-    jumperColorsPos,
-    jumperColorsRotation,
-  } = useContext(GameContext);
+  const {JUMPERS_SIZES, COLORS, jumperColorsPos, jumperColorsRotation} = props;
 
   return (
     <View
@@ -21,8 +14,7 @@ export const ColorJumpers = props => {
           pos: jumperColorsPos,
         }),
         transform: [{rotate: jumperColorsRotation + 'deg'}],
-      }}>
-      {children}
-    </View>
+      }}
+    />
   );
 };

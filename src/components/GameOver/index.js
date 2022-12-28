@@ -1,9 +1,7 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Animated, Easing, Text, TouchableOpacity} from 'react-native';
-import {GameContext} from '../../contexts/GameContext';
 
-export const GameOver = () => {
-  const {gameOver, restartGame} = useContext(GameContext);
+export const GameOver = ({gameOver, restartGame}) => {
   const [animation, setAnimation] = useState(null);
 
   useEffect(() => {

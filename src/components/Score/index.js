@@ -1,10 +1,7 @@
-import React, {useContext} from 'react';
-import {GameContext} from '../../contexts/GameContext';
+import React from 'react';
 import {Text} from 'react-native';
 
-export const Score = () => {
-  const {score} = useContext(GameContext);
-
+export const Score = ({score}) => {
   return (
     <Text
       style={{
