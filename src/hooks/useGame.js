@@ -169,7 +169,6 @@ export const useGame = () => {
       clearTimeout(window.fnInterval);
       window.fnInterval = null;
     }, 0);
-
     return () => {
       clearTimeout(window.fnInterval);
     };
